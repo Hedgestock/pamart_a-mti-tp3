@@ -207,7 +207,7 @@ Before we go into running anything, Babel needs us to provide it with a configur
 
 We'd like to be able to use ES6 as our only language, and build for the two previous revisions of each browser.
 
-First, let's add a few dev dependencies: `babel-core`, `babel-loader`, `babel-preset-env`, and `babel-preset-react`.
+First, let's add a few dev dependencies: `babel-core`, `babel-loader@7.1.5`, `babel-preset-env`, and `babel-preset-react`.
 
 Usually babel uses a `.babelrc` file to load its configuration, but you can simply add it's configuration into your `package.json`.
 
@@ -316,7 +316,7 @@ a simple way to avoid gaining too much size is by using constants.
 
 ### Bind with the view
 
-For this part, you will need to add `react-redux` to your dependencies.
+For this part, you will need to add `react-redux@5.0.6` to your dependencies.
 
 #### Display
 
