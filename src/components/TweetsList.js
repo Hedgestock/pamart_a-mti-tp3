@@ -1,17 +1,22 @@
-import React from 'react'
+import React from "react"
 
-
+import { Link } from "react-router-dom"
 import { connect } from "react-redux";
 
 import Tweet from "./Tweet";
 
-const mapStateToProps = state => {
-  return { tweets: state.tweets };
+function mapStateToProps(state) {
+    return { tweets: state.tweets };
 };
 
-const ConnectedTweetsList = ({ tweets }) => <ol>
-    {tweets.map(t => <li key={t.id}><Tweet tweet={t}></Tweet></li>)}
-</ol>;
+const ConnectedTweetsList = ({ tweets }) =>
+    <div >
+        <ol>
+            {tweets.map(t => <li key={t.id}><Tweet tweet={t}></Tweet></li>)}
+        </ol>
+        <Link className=" tweepita-button--primary " to="/Tweet">Tweet Something</Link>
+    </div>
+    ;
 
 const TweetList = connect(mapStateToProps)(ConnectedTweetsList);
 

@@ -3,21 +3,25 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import { addTweet } from "../actions/index";
+import { editTweet } from "../actions/index";
 
 function mapDispatchToProps(dispatch) {
     return {
-        addTweet: tweet => dispatch(addTweet(tweet))
+        editTweet: tweet => dispatch(editTweet(tweet))
     };
 }
 
-class ConnectedTweetForm extends React.Component {
-    constructor() {
-        super();
+function mapStateToProps(state) {
+    return { tweets: state.tweets }; //I'm not able to pass the id needed at that moment so I retrieve the whole list to filter later, gross IMO but here its only a few objects so let's say it's ok until I find the solution. inB4 probbly never.
+};
+
+class ConnectedTweetEdit extends React.Component {
+    constructor(props) {
+        super(props);
+        const tweet = props.tweets.find(t => t.id === parseInt(this.props.match.params.id));//Dirty, I would put that in the state but the goal of that is to use as little local stat as possible ?
         this.state = {
-            title: "",
-            content: "",
-            author: "",
+            title: tweet.title,
+            content: tweet.content,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,14 +33,14 @@ class ConnectedTweetForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { title, content, author } = this.state;
-        this.props.addTweet({ title, content, edited: false, author });
+        const { title, content } = this.state;
+        this.props.editTweet({ id: parseInt(this.props.match.params.id), title, content, edited: true, author: this.props.tweets.find(t => t.id === parseInt(this.props.match.params.id)).author });// I guess I could put that in the store but it's complicated and this works fine as long as I'm concerned.
         this.setState({ title: "", content: "" });
         this.props.history.push("/");
     }
 
     render() {
-        const { title, content, author } = this.state;
+        const { title, content } = this.state;
         return (
             <form onSubmit={this.handleSubmit}>
                 <input
@@ -56,22 +60,14 @@ class ConnectedTweetForm extends React.Component {
                     placeholder="Type your thoughts"
                     onChange={this.handleChange}
                 />
-                <input
-                    type="text"
-                    className="form-control"
-                    id="author"
-                    value={author}
-                    placeholder="Your name"
-                    onChange={this.handleChange}
-                />
                 <button type="submit" className=" tweepita-button--primary ">
-                    TWEET !
+                    Update
                 </button>
             </form>
         );
     }
 }
 
-const TweetForm = connect(null, mapDispatchToProps)(ConnectedTweetForm);
+const TweetEdit = connect(mapStateToProps, mapDispatchToProps)(ConnectedTweetEdit);
 
-export default withRouter(TweetForm);
+export default withRouter(TweetEdit);

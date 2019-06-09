@@ -5,9 +5,8 @@ import { Provider } from "react-redux";
 import App from "./App"
 
 
-console.log("Hello World !"); // we'll, it's a classic, isn't it ?
 ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>
-    , document.getElementById('root'))
+    , document.getElementById("root"))
