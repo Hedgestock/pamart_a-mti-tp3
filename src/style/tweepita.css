@@ -5,6 +5,7 @@ body {
     background: #e6ecf0;
 }
 
+
 ol {
     list-style-type: none;
     padding-left: 0;
@@ -20,6 +21,7 @@ h1 {
     border-bottom: 1px solid #e6ecf0;
     margin: 0;
     padding: 10px 0;
+    text-align: center;
 }
 
 h2 {

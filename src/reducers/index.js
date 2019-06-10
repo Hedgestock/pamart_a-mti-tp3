@@ -16,11 +16,9 @@ function tweetReducer(state = initialState, action) {
         return Object.assign(
             {
                 tweets: state.tweets.concat({
-                    title: action.tweet.title,
-                    content: action.tweet.content,
-                    author: action.tweet.author,
+                    ...action.tweet,
                     id: state.nextId
-                }),// can"t do {...action.tweet, id: nextId} and dont" understand why. (It doesn"t like the dot)
+                }),
                 nextId: state.nextId + 1,
                 state,
             }
